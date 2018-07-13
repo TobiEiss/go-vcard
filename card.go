@@ -314,9 +314,9 @@ func (c Card) SetRevision(t time.Time) {
 
 // A field contains a value and some parameters.
 type Field struct {
-	Value  string
-	Params Params
-	Group  string
+	Value  string `json:"value,omitempty"`
+	Params Params `json:"params,omitempty"`
+	Group  string `json:"group,omitempty"`
 }
 
 // Params is a set of field parameters.
@@ -417,11 +417,11 @@ const (
 type Name struct {
 	*Field
 
-	FamilyName      string
-	GivenName       string
-	AdditionalName  string
-	HonorificPrefix string
-	HonorificSuffix string
+	FamilyName      string `json:"familiyName,omitempty"`
+	GivenName       string `json:"givenName,omitempty"`
+	AdditionalName  string `json:"additionalName,omitempty"`
+	HonorificPrefix string `json:"honorificPrefix,omitempty"`
+	HonorificSuffix string `json:"honorificSuffix,omitempty"`
 }
 
 func newName(field *Field) *Name {
@@ -466,13 +466,13 @@ const (
 type Address struct {
 	*Field
 
-	PostOfficeBox   string
-	ExtendedAddress string // e.g., apartment or suite number
-	StreetAddress   string
-	Locality        string // e.g., city
-	Region          string // e.g., state or province
-	PostalCode      string
-	Country         string
+	PostOfficeBox   string `json:"postOfficeBox,omitempty"`
+	ExtendedAddress string `json:"extendedAddress,omitempty"` // e.g., apartment or suite number
+	StreetAddress   string `json:"streetAddress,omitempty"`
+	Locality        string `json:"locality,omitempty"` // e.g., city
+	Region          string `json:"region,omitempty"`   // e.g., state or province
+	PostalCode      string `json:"postalCode,omitempty"`
+	Country         string `json:"country,omitempty"`
 }
 
 func newAddress(field *Field) *Address {

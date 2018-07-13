@@ -1,6 +1,7 @@
 package vcard
 
 import (
+	"encoding/json"
 	"reflect"
 	"strings"
 	"testing"
@@ -95,6 +96,23 @@ func TestDecoder(t *testing.T) {
 			t.Errorf("Invalid parsed card: expected \n%+v\n but got \n%+v", test.card, card)
 			for k, fields := range test.card {
 				t.Log(k, reflect.DeepEqual(fields, card[k]), fields[0], card[k][0])
+			}
+		}
+
+		// test JSON decoding and encoding
+		cardJSON, err := json.Marshal(card)
+		if err != nil {
+			t.Fatal("Expected no error when marshal card, got: ", err)
+		}
+		var unmarshaledCard Card
+		err = json.Unmarshal(cardJSON, &unmarshaledCard)
+		if err != nil {
+			t.Fatal("Expected no error when unmarshal card, got: ", err)
+		}
+		if !reflect.DeepEqual(unmarshaledCard, test.card) {
+			t.Errorf("Invalid parsed card: expected \n%+v\n but got \n%+v", test.card, unmarshaledCard)
+			for k, fields := range test.card {
+				t.Log(k, reflect.DeepEqual(fields, unmarshaledCard[k]), fields[0], unmarshaledCard[k][0])
 			}
 		}
 	}
